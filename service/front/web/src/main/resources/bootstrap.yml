@@ -1,0 +1,46 @@
+nacos:
+  server-addr: http://nacos.moyuaninfo.com
+#  namespace: c31d3220-f280-4110-8512-357b7f859696
+#  namespace: b4c07b73-1c0f-49e6-b8fd-06fe5d09cd5c
+  namespace: 0df7cb7d-66dd-4dd3-9dc2-8db16dd64bf4
+  username: nacos
+  password: nacos@$moyuan
+
+server:
+  port: 9102 #启动端口
+
+spring:
+  application:
+    name: front-web
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.server-addr}
+        namespace: ${nacos.namespace}
+        username: ${nacos.username}
+        password: ${nacos.password}
+      config:
+        server-addr: ${nacos.server-addr}
+        file-extension: yaml
+        namespace: ${nacos.namespace}
+        username: ${nacos.username}
+        password: ${nacos.password}
+        extension-configs: # [{dataId: arithmetic-mq.yaml},{dataId: ys7.yaml},{dataId: alarm-data.yaml}]
+          - dataId: oss-data.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+          - dataId: arithmetic-mq.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+          - dataId: alarm-data.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+#          - dataId: ys7.yaml
+#            group: DEFAULT_GROUP
+#            refresh: true
+
+#        enable-remote-sync-config: true
+#server:
+#  port: 9001
